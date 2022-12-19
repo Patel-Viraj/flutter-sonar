@@ -1,0 +1,29 @@
+
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo "Install phase ..."
+    runtime-versions:
+      java: corretto17
+  pre_build:
+    commands:
+      - echo "Pre build phase ..."
+      - apt-get update
+      - apt-get install -y jq
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
+      - echo "Current path is >>>"
+      - sh $pwd
+      - unzip ./sonar-scanner-cli-4.7.0.2747-linux.zip
+      - export PATH=$PATH:./sonar-scanner-4.7.0.2747-linux/bin/
+      - git clone https://github.com/flutter/flutter.git -b stable
+      - export PATH="$PATH:`pwd`/flutter/bin"
+      - flutter precache
+      - flutter doctor
+  build:
+    commands:
+      - echo "Build phase ..."
+      - sonar-scanner -Dsonar.projectKey=iot -Dsonar.sources=lib -Dsonar.inclusions=lib/** -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_23f185ea6f58b1a101c06bab1eb25ca3326666c4
+  post_build:
+    commands:
+      - echo "Post build phase ..."
