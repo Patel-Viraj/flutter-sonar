@@ -23,7 +23,7 @@ phases:
   build:
     commands:
       - echo "Build phase ..."
-      - sonar-scanner -Dsonar.projectKey=iot -Dsonar.sources=lib -Dsonar.inclusions=lib/** -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_23f185ea6f58b1a101c06bab1eb25ca3326666c4
+      - sonar-scanner -Dsonar.projectKey=iot -Dsonar.sources=lib -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_23f185ea6f58b1a101c06bab1eb25ca3326666c4
   post_build:
     commands:
       - echo "Post build phase ..."
